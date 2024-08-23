@@ -9,17 +9,6 @@ service ril-daemon /vendor/bin/hw/rild
     user radio
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW SYS_ADMIN CHOWN SYS_TIME
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    onrestart restart cpboot-daemon
-    onrestart restart cpboot-daemon5g
-    onrestart restart DIAG-daemon
-    override
 
-# LSI CDMA project daemon support dun function
-service VC-daemon /vendor/bin/vcd
-    class main
-    user root
-    group system
-    disabled
-    seclabel u:r:vcd:s0
-    override
+on property:sys.boot_completed=1
+    start meta_tst
